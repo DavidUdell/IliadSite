@@ -29,7 +29,6 @@
 
     html, body {
         height: 100%;
-        overflow: clip;
         font-size: clamp(16px, calc(12px + 0.6vw), 20px);
     }
     body {
@@ -58,8 +57,7 @@
     .nowrap {
         display: inline-block;
         white-space: nowrap;
-        overflow: clip;
+        overflow: hidden;
         text-overflow: ellipsis;
-        text-wrap: nowrap;
     }
 }
