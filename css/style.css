@@ -35,7 +35,7 @@ body {
     background: var(--bg);
     color: var(--ink);
     font-family:
-        ui-monospace,
+        'JetBrains Mono', ui-monospace,
         SFMono-Regular, Menlo, Monaco, /* Mac */
         'Cascadia Code', 'Cascadia Mono', Consolas, /* Windows */
         'Ubuntu Mono', 'DejaVu Sans Mono', 'Liberation Mono', 'Noto Sans Mono', /* Linux */
