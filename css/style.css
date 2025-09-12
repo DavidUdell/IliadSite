@@ -1,4 +1,4 @@
-@layer reset, base;
+@layer reset, base, components;
 
 @layer reset {
     *, *::before, *::after {
@@ -26,19 +26,40 @@
         --bg: #1A1A1A;
         --ink: #F1BE7A;
     }
+
+    html, body {
+        height: 100%;
+        overflow: clip;
+        font-size: clamp(16px, calc(12px + 0.6vw), 20px);
+    }
+    body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+            'JetBrains Mono', ui-monospace,
+            SFMono-Regular, Menlo, Monaco, /* Mac */
+            'Cascadia Code', 'Cascadia Mono', Consolas, /* Windows */
+            'Ubuntu Mono', 'DejaVu Sans Mono', 'Liberation Mono', 'Noto Sans Mono', /* Linux */
+            monospace;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    :where(h1, h2, h3) {
+        line-height: 1.2; font-weight: 700;
+    }
+
+    h1 {  font-size: 6rem;  }
+    h2 {  font-size: 2.5rem;  }
+    h3 {  font-size: 1.75rem;  }
 }
 
-html, body {
-    height: 100%;
-}
-body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family:
-        'JetBrains Mono', ui-monospace,
-        SFMono-Regular, Menlo, Monaco, /* Mac */
-        'Cascadia Code', 'Cascadia Mono', Consolas, /* Windows */
-        'Ubuntu Mono', 'DejaVu Sans Mono', 'Liberation Mono', 'Noto Sans Mono', /* Linux */
-        monospace;
-    -webkit-font-smoothing: antialiased;
+@layer components {
+    .nowrap {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: clip;
+        text-overflow: ellipsis;
+        text-wrap: nowrap;
+    }
 }
