@@ -34,6 +34,11 @@ html, body {
 body {
     background: var(--bg);
     color: var(--ink);
-    font-family:'Courier New', Courier, monospace;
+    font-family:
+        ui-monospace,
+        SFMono-Regular, Menlo, Monaco, /* Mac */
+        'Cascadia Code', 'Cascadia Mono', Consolas, /* Windows */
+        'Ubuntu Mono', 'DejaVu Sans Mono', 'Liberation Mono', 'Noto Sans Mono', /* Linux */
+        monospace;
     -webkit-font-smoothing: antialiased;
 }
