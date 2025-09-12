@@ -1,4 +1,4 @@
-@layer reset, base, components, utilities;
+@layer reset, base;
 
 @layer reset {
     *, *::before, *::after {
@@ -24,6 +24,7 @@
 @layer base {
     :root {
         --bg: #ffcc99;
+        --ink: #000000;
     }
 }
 
@@ -32,4 +33,7 @@ html, body {
 }
 body {
     background: var(--bg);
+    color: var(--ink);
+    font-family:'Courier New', Courier, monospace;
+    -webkit-font-smoothing: antialiased;
 }
