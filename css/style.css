@@ -20,3 +20,9 @@
         color-scheme: light dark;
     }
 }
+
+@layer base {
+    :root {
+        --bg: #ffcc99;
+    }
+}
