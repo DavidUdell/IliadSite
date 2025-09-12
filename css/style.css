@@ -1,0 +1,22 @@
+@layer reset, base, components, utilities;
+
+@layer reset {
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+    * {
+        margin: 0;
+    }
+    img, picture, video, canvas, svg {
+        display: block; max-width: 100%
+    }
+    input, button, textarea, select {
+        font: inherit; color: inherit;
+    }
+    html:focus-within {
+        scroll-behavior: smooth;
+    }
+    :root {
+        color-scheme: light dark;
+    }
+}
