@@ -1,3 +1,3 @@
 # Prototype website
 
-Trireme logo from game-icons.net; recolored; under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en)
+Trireme logo by [game-icons.net](https://game-icons.net); recolored; under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
