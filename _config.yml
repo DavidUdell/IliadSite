@@ -1,8 +1,0 @@
-title: "The Iliad Project"
-description: "Tell me, oh Muse, of the wrath of AIcilles..."
-baseurl: ""
-url: ""
-
-# Jekyll settings
-markdown: kramdown
-highlighter: rouge
