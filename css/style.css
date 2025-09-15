@@ -71,7 +71,7 @@
         height: 20px;
         background-image: url("../images/meander.svg");
         background-repeat: repeat-x;
-        background-size: 40px 60px;
+        background-size: contain;;
     }
 
     nav {
