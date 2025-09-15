@@ -91,9 +91,9 @@
         font-weight: 700;
     }
 
-    .lambda {
-        color: var(--ink);
-        font-weight: 900;
+    .logo-img {
+        height: 3.5rem;
+        width: auto;
     }
 
     .logo a {
