@@ -58,7 +58,7 @@
 
     header {
         background: var(--bg);
-        padding: 1rem 2rem;
+        padding: 1rem 2rem 2.5rem 2rem;
         position: relative;
     }
 
@@ -68,10 +68,10 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 20px;
+        height: 50px;
         background-image: url("../images/meander.svg");
         background-repeat: repeat-x;
-        background-size: contain;;
+        background-size: contain;
     }
 
     nav {
