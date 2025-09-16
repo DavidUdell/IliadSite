@@ -55,14 +55,27 @@
                 }
             }
             
-            // Load saved theme preference
+            // Load saved theme preference or detect system preference
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 html.setAttribute('data-theme', 'dark');
                 themeToggle.checked = true;
                 updateLogo(true);
-            } else {
+            } else if (savedTheme === 'light') {
+                html.setAttribute('data-theme', 'light');
+                themeToggle.checked = false;
                 updateLogo(false);
+            } else {
+                // No saved preference, detect system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDark) {
+                    html.setAttribute('data-theme', 'dark');
+                    themeToggle.checked = true;
+                    updateLogo(true);
+                } else {
+                    // System prefers light mode, no data-theme attribute needed
+                    updateLogo(false);
+                }
             }
             
             // Handle theme toggle
@@ -72,12 +85,30 @@
                     localStorage.setItem('theme', 'dark');
                     updateLogo(true);
                 } else {
-                    html.removeAttribute('data-theme');
+                    html.setAttribute('data-theme', 'light');
                     localStorage.setItem('theme', 'light');
                     updateLogo(false);
+                }
+            });
+
+            // Listen for system preference changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                // Only respond to system changes if no explicit preference is saved
+                const savedTheme = localStorage.getItem('theme');
+                if (!savedTheme) {
+                    if (e.matches) {
+                        html.setAttribute('data-theme', 'dark');
+                        themeToggle.checked = true;
+                        updateLogo(true);
+                    } else {
+                        html.removeAttribute('data-theme');
+                        themeToggle.checked = false;
+                        updateLogo(false);
+                    }
                 }
             });
         });
     </script>
 </body>
+</html>
 </html>

@@ -22,9 +22,24 @@
         --ink: #1A1A1A;
     }
 
+    /* System preference for dark mode */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg: #1A1A1A;
+            --ink: #F1BE7A;
+        }
+    }
+
+    /* Explicit dark theme override */
     [data-theme="dark"] {
         --bg: #1A1A1A;
         --ink: #F1BE7A;
+    }
+
+    /* Explicit light theme override */
+    [data-theme="light"] {
+        --bg: #F1BE7A;
+        --ink: #1A1A1A;
     }
 
     html, body {
@@ -67,7 +82,22 @@
         color: #663399;
     }
 
-    /* Dark mode link colors */
+    /* System preference for dark mode link colors */
+    @media (prefers-color-scheme: dark) {
+        a {
+            color: #66B3FF;
+        }
+
+        a:hover {
+            color: #99CCFF;
+        }
+
+        a:visited {
+            color: #CC99FF;
+        }
+    }
+
+    /* Explicit dark theme override */
     [data-theme="dark"] a {
         color: #66B3FF;
     }
@@ -78,6 +108,19 @@
 
     [data-theme="dark"] a:visited {
         color: #CC99FF;
+    }
+
+    /* Explicit light theme override */
+    [data-theme="light"] a {
+        color: #0066CC;
+    }
+
+    [data-theme="light"] a:hover {
+        color: #004499;
+    }
+
+    [data-theme="light"] a:visited {
+        color: #663399;
     }
 }
 
@@ -107,8 +150,21 @@
         background-size: contain;
     }
 
+    /* System preference for dark mode */
+    @media (prefers-color-scheme: dark) {
+        header::after {
+            background-image: url("../images/meander_dark_mode.svg");
+        }
+    }
+
+    /* Explicit dark theme override */
     [data-theme="dark"] header::after {
         background-image: url("../images/meander_dark_mode.svg");
+    }
+
+    /* Explicit light theme override */
+    [data-theme="light"] header::after {
+        background-image: url("../images/meander_light_mode.svg");
     }
 
     nav {
