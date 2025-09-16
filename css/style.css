@@ -437,10 +437,10 @@
         }
         
         .partner-logos {
-            flex-direction: column !important;
+            display: grid !important;
+            grid-template-columns: 1fr !important;
             gap: 1rem !important;
-            flex-wrap: nowrap !important;
-            justify-content: center !important;
+            justify-items: center !important;
         }
         
         .partner-logo {
