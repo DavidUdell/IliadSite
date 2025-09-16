@@ -203,7 +203,7 @@
     }
 
     .logo-img {
-        height: clamp(40px, 8vw, 70px); /* Responsive sizing */
+        height: 70px; /* Responsive sizing */
         width: auto;
     }
 
@@ -360,7 +360,7 @@
     }
 
     .partner-logo {
-        height: clamp(60px, 12vw, 100px);
+        height: 70px;
         width: auto;
         max-width: 100%;
     }
@@ -434,6 +434,11 @@
         .title-top,
         .title-bottom {
             font-size: 1rem;
+        }
+        
+        .partner-logos {
+            flex-direction: column;
+            gap: 1rem;
         }
         
         .partner-logo {
