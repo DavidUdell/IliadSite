@@ -329,7 +329,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 2rem;
+        position: relative;
+    }
+
+    .footer-copyright {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .footer-logo {
