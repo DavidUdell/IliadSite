@@ -18,8 +18,8 @@
 
 @layer base {
     :root {
-        --bg: #1A1A1A;
-        --ink: #F1BE7A;
+        --bg: #F1BE7A;
+        --ink: #1A1A1A;
     }
 
     html, body {
