@@ -57,6 +57,9 @@
             monospace;
         line-height: 1.5;
         -webkit-font-smoothing: antialiased;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
 
     :where(h1, h2, h3) {
@@ -215,6 +218,7 @@
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
+        flex: 1;
     }
 
     .multi-level-title {
@@ -304,5 +308,37 @@
 
     .slider:hover {
         opacity: 0.8;
+    }
+
+    footer {
+        padding: 2rem;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-bar {
+        height: 1px;
+        background-color: var(--ink);
+        margin-bottom: 1rem;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .footer-logo {
+        height: 30px;
+        width: auto;
+    }
+
+    .footer-copyright {
+        font-size: 0.9rem;
+        color: var(--ink);
     }
 }

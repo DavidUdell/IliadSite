@@ -61,23 +61,34 @@
             </div>
         </main>
         
+        <footer>
+            <div class="footer-bar"></div>
+            <div class="footer-content">
+                <img src="images/galley_light_mode.svg" alt="The Iliad Project" class="footer-logo" id="footer-logo">
+                <div class="footer-copyright">© The Iliad Project 2025</div>
+            </div>
+        </footer>
+        
         <script>
             // Theme toggle functionality
             document.addEventListener('DOMContentLoaded', function() {
                 const themeToggle = document.getElementById('theme-toggle');
                 const html = document.documentElement;
                 const logoImg = document.getElementById('logo-img');
+                const footerLogo = document.getElementById('footer-logo');
                 
                 // Function to update logos based on theme
                 function updateLogos(isDark) {
                     if (isDark) {
                         logoImg.src = 'images/galley_dark_mode.svg';
+                        footerLogo.src = 'images/galley_dark_mode.svg';
                         document.getElementById('ude-logo').src = 'images/UDE_dark_mode.svg';
                         document.getElementById('unb-logo').src = 'images/UNB_dark_mode.svg';
                         document.getElementById('op-logo').src = 'images/OP_dark_mode.svg';
                         document.getElementById('sff-logo').src = 'images/SFF_dark_mode.svg';
                     } else {
                         logoImg.src = 'images/galley_light_mode.svg';
+                        footerLogo.src = 'images/galley_light_mode.svg';
                         document.getElementById('ude-logo').src = 'images/UDE_light_mode.svg';
                         document.getElementById('unb-logo').src = 'images/UNB_light_mode.svg';
                         document.getElementById('op-logo').src = 'images/OP_light_mode.svg';
