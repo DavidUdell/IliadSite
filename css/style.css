@@ -315,27 +315,25 @@
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .footer-bar {
-        height: 1px;
-        background-color: var(--ink);
-        margin-bottom: 1rem;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-    }
-
-    .footer-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         position: relative;
     }
 
-    .footer-copyright {
+    footer::before {
+        content: '';
         position: absolute;
+        top: 0;
         left: 50%;
         transform: translateX(-50%);
+        width: 100vw;
+        height: 1px;
+        background-color: var(--ink);
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 1rem;
     }
 
     .footer-logo {
@@ -344,6 +342,8 @@
     }
 
     .footer-copyright {
+        justify-self: center;
+        grid-column: 2;
         font-size: 0.9rem;
         color: var(--ink);
     }
