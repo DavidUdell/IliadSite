@@ -437,8 +437,10 @@
         }
         
         .partner-logos {
-            flex-direction: column;
-            gap: 1rem;
+            flex-direction: column !important;
+            gap: 1rem !important;
+            flex-wrap: nowrap !important;
+            justify-content: center !important;
         }
         
         .partner-logo {
