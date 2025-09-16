@@ -17,13 +17,19 @@
     <header>
         <nav>
             <div class="logo">
-                <a href="index.html"><img src="images/trireme.svg" alt="The Iliad Project" class="logo-img"></a>
+                <a href="index.html"><img src="images/trireme_light_mode.svg" alt="The Iliad Project" class="logo-img" id="logo-img"></a>
             </div>
             <div class="nav-links">
                 <a href="events.html">Events</a>
                 <a href="team.html">Team</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
+            </div>
+            <div class="theme-toggle">
+                <label class="theme-switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
             </div>
         </nav>
     </header>
@@ -32,5 +38,46 @@
         <h2>Team</h2>
         <!-- Page-specific content goes here -->
     </main>
+    
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+            const logoImg = document.getElementById('logo-img');
+            
+            // Function to update logo based on theme
+            function updateLogo(isDark) {
+                if (isDark) {
+                    logoImg.src = 'images/trireme_dark_mode.svg';
+                } else {
+                    logoImg.src = 'images/trireme_light_mode.svg';
+                }
+            }
+            
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                html.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
+                updateLogo(true);
+            } else {
+                updateLogo(false);
+            }
+            
+            // Handle theme toggle
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    html.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    updateLogo(true);
+                } else {
+                    html.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    updateLogo(false);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

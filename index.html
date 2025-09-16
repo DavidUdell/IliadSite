@@ -18,13 +18,19 @@
         <header>
             <nav>
                 <div class="logo">
-                    <a href="index.html"><img src="images/trireme.svg" alt="The Iliad Project" class="logo-img"></a>
+                    <a href="index.html"><img src="images/trireme_light_mode.svg" alt="The Iliad Project" class="logo-img" id="logo-img"></a>
                 </div>
                 <div class="nav-links">
                     <a href="events.html">Events</a>
                     <a href="team.html">Team</a>
                     <a href="about.html">About</a>
                     <a href="contact.html">Contact</a>
+                </div>
+                <div class="theme-toggle">
+                    <label class="theme-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                    </label>
                 </div>
             </nav>
         </header>
@@ -44,9 +50,9 @@
             the field.</p>
             <p><br>We collaborate with individual researchers at:<br><br></p>
             <div style="display: flex; gap: 2rem; align-items: center;">
-                <img src="images/UDE.svg" style="height:100px; width:auto;">
-                <img src="images/Sussex.svg" style="height:100px; width:auto;">
-                <img src="images/UNB.svg" style="height:100px; width:auto;">
+                <img src="images/UDE.svg" style="height:100px; width:auto;" id="ude-logo">
+                <img src="images/Sussex_light_mode.svg" style="height:100px; width:auto;" id="sussex-logo">
+                <img src="images/UNB_light_mode.svg" style="height:100px; width:auto;" id="unb-logo">
             </div>
             <p><br>We are funded by:<br><br></p>
             <div style="display: flex; gap: 2rem; align-items: center;">
@@ -54,6 +60,51 @@
                 <img src="images/OP.svg" style="height:100px; width:auto;">
             </div>
         </main>
+        
+        <script>
+            // Theme toggle functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const themeToggle = document.getElementById('theme-toggle');
+                const html = document.documentElement;
+                const logoImg = document.getElementById('logo-img');
+                
+                // Function to update logos based on theme
+                function updateLogos(isDark) {
+                    if (isDark) {
+                        logoImg.src = 'images/trireme_dark_mode.svg';
+                        document.getElementById('sussex-logo').src = 'images/Sussex_dark_mode.svg';
+                        document.getElementById('unb-logo').src = 'images/UNB_dark_mode.svg';
+                    } else {
+                        logoImg.src = 'images/trireme_light_mode.svg';
+                        document.getElementById('sussex-logo').src = 'images/Sussex_light_mode.svg';
+                        document.getElementById('unb-logo').src = 'images/UNB_light_mode.svg';
+                    }
+                }
+                
+                // Load saved theme preference
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    html.setAttribute('data-theme', 'dark');
+                    themeToggle.checked = true;
+                    updateLogos(true);
+                } else {
+                    updateLogos(false);
+                }
+                
+                // Handle theme toggle
+                themeToggle.addEventListener('change', function() {
+                    if (this.checked) {
+                        html.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                        updateLogos(true);
+                    } else {
+                        html.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                        updateLogos(false);
+                    }
+                });
+            });
+        </script>
     </body>
 
 </html>
