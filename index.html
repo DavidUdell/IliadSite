@@ -56,7 +56,7 @@
             </div>
             <p><br>We are financially supported by:<br><br></p>
             <div style="display: flex; gap: 2rem; align-items: center;">
-                <img src="images/SFF.svg" style="height:100px; width:auto;">
+                <img src="images/SFF_light_mode.svg" style="height:100px; width:auto;" id="sff-logo">
                 <img src="images/OP_light_mode.svg" style="height:100px; width:auto;" id="op-logo">
             </div>
         </main>
@@ -75,11 +75,13 @@
                         document.getElementById('ude-logo').src = 'images/UDE_dark_mode.svg';
                         document.getElementById('unb-logo').src = 'images/UNB_dark_mode.svg';
                         document.getElementById('op-logo').src = 'images/OP_dark_mode.svg';
+                        document.getElementById('sff-logo').src = 'images/SFF_dark_mode.svg';
                     } else {
                         logoImg.src = 'images/galley_light_mode.svg';
                         document.getElementById('ude-logo').src = 'images/UDE_light_mode.svg';
                         document.getElementById('unb-logo').src = 'images/UNB_light_mode.svg';
                         document.getElementById('op-logo').src = 'images/OP_light_mode.svg';
+                        document.getElementById('sff-logo').src = 'images/SFF_light_mode.svg';
                     }
                 }
                 
