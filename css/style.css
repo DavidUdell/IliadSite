@@ -373,16 +373,20 @@
         }
         
         nav {
-            display: block;
+            display: block !important;
             position: relative;
             width: 100%;
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            margin: 0 !important;
         }
         
         .logo {
-            display: inline-block;
-            margin: 0;
+            display: inline-block !important;
+            margin: 0 !important;
             position: relative;
             z-index: 2;
+            text-align: left !important;
         }
         
         .theme-toggle {
@@ -442,12 +446,12 @@
         
         .footer-content {
             grid-template-columns: 1fr;
-            text-align: center;
+            text-align: left !important;
             gap: 0.5rem;
         }
         
         .footer-logo {
-            justify-self: center;
+            justify-self: flex-start !important;
         }
         
         .footer-copyright {
