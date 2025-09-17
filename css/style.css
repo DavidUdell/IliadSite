@@ -369,6 +369,10 @@
 
     /* Mobile-specific styles */
     @media (max-width: 768px) {
+        /* Ensure paragraph spacing is preserved on mobile */
+        p { 
+            margin-block: 2rem !important; 
+        }
         header {
             padding: 1rem clamp(1rem, 4vw, 2rem) 3rem clamp(1rem, 4vw, 2rem);
             position: relative;
@@ -453,28 +457,34 @@
             padding: clamp(1rem, 4vw, 2rem);
         }
         
-        .footer-content {
+        /* Force footer layout on mobile - override any layer issues */
+        footer .footer-content {
             display: flex !important;
             flex-direction: row !important;
             justify-content: space-between !important;
             align-items: center !important;
             width: 100% !important;
-            gap: 1rem;
+            gap: 1rem !important;
+            grid-template-columns: none !important;
         }
         
-        .footer-logo {
+        footer .footer-logo {
             order: 1 !important;
             flex-shrink: 0 !important;
             margin: 0 !important;
             padding: 0 !important;
+            grid-column: unset !important;
+            justify-self: unset !important;
         }
         
-        .footer-copyright {
+        footer .footer-copyright {
             order: 2 !important;
             flex-shrink: 0 !important;
             margin: 0 !important;
             padding: 0 !important;
             text-align: right !important;
+            grid-column: unset !important;
+            justify-self: unset !important;
         }
     }
     
