@@ -233,6 +233,8 @@
         margin-bottom: 2rem;
         position: relative;
         max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .title-top {
@@ -437,9 +439,16 @@
             max-width: 100%;
         }
         
-        .title-top,
+        .title-top {
+            font-size: 1rem;
+            text-align: center;
+            transform: translateX(-4rem);
+        }
+        
         .title-bottom {
             font-size: 1rem;
+            text-align: center;
+            transform: translateX(4rem);
         }
         
         .partner-logos {
