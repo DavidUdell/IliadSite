@@ -454,27 +454,24 @@
         }
         
         .footer-content {
-            grid-template-columns: auto 1fr;
-            text-align: left !important;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
             gap: 1rem;
-            align-items: center;
-            width: 100%;
         }
         
         .footer-logo {
-            justify-self: start !important;
-            align-self: center !important;
-            grid-column: 1;
+            order: 1 !important;
+            flex-shrink: 0 !important;
             margin: 0 !important;
             padding: 0 !important;
-            position: relative;
-            left: 0 !important;
         }
         
         .footer-copyright {
-            grid-column: 2;
-            justify-self: end !important;
-            align-self: center !important;
+            order: 2 !important;
+            flex-shrink: 0 !important;
             margin: 0 !important;
             padding: 0 !important;
             text-align: right !important;
