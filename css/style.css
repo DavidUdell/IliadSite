@@ -166,24 +166,27 @@
         height: 50px;
         background-image: url("../images/meander_light_mode.svg");
         background-repeat: repeat-x;
-        background-size: contain;
+        background-size: 106.75px 50px;
     }
 
     /* System preference for dark mode */
     @media (prefers-color-scheme: dark) {
         header::after {
             background-image: url("../images/meander_dark_mode.svg");
+            background-size: 106.75px 50px;
         }
     }
 
     /* Explicit dark theme override */
     [data-theme="dark"] header::after {
         background-image: url("../images/meander_dark_mode.svg");
+        background-size: 106.75px 50px;
     }
 
     /* Explicit light theme override */
     [data-theme="light"] header::after {
         background-image: url("../images/meander_light_mode.svg");
+        background-size: 106.75px 50px;
     }
 
     nav {
