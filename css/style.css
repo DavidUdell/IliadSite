@@ -458,16 +458,26 @@
             text-align: left !important;
             gap: 1rem;
             align-items: center;
+            width: 100%;
         }
         
         .footer-logo {
             justify-self: start !important;
+            align-self: center !important;
             grid-column: 1;
+            margin: 0 !important;
+            padding: 0 !important;
+            position: relative;
+            left: 0 !important;
         }
         
         .footer-copyright {
             grid-column: 2;
-            justify-self: end;
+            justify-self: end !important;
+            align-self: center !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            text-align: right !important;
         }
     }
     
