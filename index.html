@@ -1,142 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
-        <title>Iliad</title>
-        <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-        <link rel="icon" type="image/png" href="images/favicon.png">
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
-        <header>
-            <nav>
-                <div class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="events.html">Events</a>
-                    <a href="team.html">Team</a>
-                    <a href="about.html">About</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                <div class="theme-toggle">
-                    <label class="theme-switch">
-                        <input type="checkbox" id="theme-toggle">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </nav>
-        </header>
-        
-        <main>
-            <div class="title-main">Iliad</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
+    <title>Iliad</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-            <p>Iliad is an applied mathematics research non-profit dedicated to
-            advancing foundational research in AI alignment theory. We organize
-            the <a href="https://www.iliadconference.com/">
-            Iliad conference</a> series, the premier AI alignment theory
-            conference, alongside a range of other conferences and events in
-            the field.</p>
+<header>
+    <nav>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="events.html">Events</a>
+            <a href="team.html">Team</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">About</a>
+        </div>
+        <div class="theme-toggle">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </nav>
+</header>
 
-            <p>We collaborate with individual researchers at:</p>
-            <div class="partner-logos">
-                <img src="images/UDE_light_mode.svg" class="partner-logo" id="ude-logo">
-                <img src="images/Sussex.svg" class="partner-logo">
-                <img src="images/UNB_light_mode.svg" class="partner-logo" id="unb-logo">
-            </div>
+<main>
+    <div class="title-main">Iliad</div>
 
-            <p>We are financially supported by:</p>
-            <div class="partner-logos">
-                <img src="images/SFF_light_mode.svg" class="partner-logo" id="sff-logo">
-                <!-- <img src="images/OP_light_mode.svg" class="partner-logo" id="op-logo"> -->
-            </div>
-        </main>
-        
-        <footer>
-            <div class="footer-content">
-                <small class="footer-copyright">© 2025 The Iliad Project</small>
-            </div>
-        </footer>
-        
-        <script>
-            // Theme toggle functionality
-            document.addEventListener('DOMContentLoaded', function() {
-                const themeToggle = document.getElementById('theme-toggle');
-                const html = document.documentElement;
-                
-                // Function to update logos based on theme
-                function updateLogos(isDark) {
-                    if (isDark) {
-                        document.getElementById('ude-logo').src = 'images/UDE_dark_mode.svg';
-                        document.getElementById('unb-logo').src = 'images/UNB_dark_mode.svg';
-                        // document.getElementById('op-logo').src = 'images/OP_dark_mode.svg';
-                        document.getElementById('sff-logo').src = 'images/SFF_dark_mode.svg';
-                    } else {
-                        document.getElementById('ude-logo').src = 'images/UDE_light_mode.svg';
-                        document.getElementById('unb-logo').src = 'images/UNB_light_mode.svg';
-                        // document.getElementById('op-logo').src = 'images/OP_light_mode.svg';
-                        document.getElementById('sff-logo').src = 'images/SFF_light_mode.svg';
-                    }
-                }
-                
-                // Load saved theme preference or detect system preference
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme === 'dark') {
+    <p>Iliad is an applied mathematics research non-profit dedicated to
+    advancing foundational research in AI alignment theory. We organize the <a
+    href="https://www.iliadconference.com/">
+    Iliad conference</a> series, the premier AI alignment theory
+    conference, alongside a range of other conferences and events in
+    the field.</p>
+
+    <p>We collaborate with individual researchers at:</p>
+    <div class="partner-logos">
+        <img src="images/UDE_light_mode.svg" class="partner-logo" id="ude-logo">
+        <img src="images/Sussex.svg" class="partner-logo">
+        <img src="images/UNB_light_mode.svg" class="partner-logo" id="unb-logo">
+    </div>
+
+    <p>We are financially supported by:</p>
+    <div class="partner-logos">
+        <img src="images/SFF_light_mode.svg" class="partner-logo" id="sff-logo">
+        <!-- <img src="images/OP_light_mode.svg" class="partner-logo" id="op-logo"> -->
+    </div>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <small class="footer-copyright">© 2025 The Iliad Project</small>
+    </div>
+</footer>
+
+<script>
+    // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Function to update logos based on theme
+        function updateLogos(isDark) {
+            if (isDark) {
+                document.getElementById('ude-logo').src = 'images/UDE_dark_mode.svg';
+                document.getElementById('unb-logo').src = 'images/UNB_dark_mode.svg';
+                // document.getElementById('op-logo').src = 'images/OP_dark_mode.svg';
+                document.getElementById('sff-logo').src = 'images/SFF_dark_mode.svg';
+            } else {
+                document.getElementById('ude-logo').src = 'images/UDE_light_mode.svg';
+                document.getElementById('unb-logo').src = 'images/UNB_light_mode.svg';
+                // document.getElementById('op-logo').src = 'images/OP_light_mode.svg';
+                document.getElementById('sff-logo').src = 'images/SFF_light_mode.svg';
+            }
+        }
+
+        // Load saved theme preference or detect system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+            updateLogos(true);
+        } else if (savedTheme === 'light') {
+            html.setAttribute('data-theme', 'light');
+            themeToggle.checked = false;
+            updateLogos(false);
+        } else {
+            // No saved preference, detect system preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) {
+                html.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
+                updateLogos(true);
+            } else {
+                // System prefers light mode, no data-theme attribute needed
+                updateLogos(false);
+            }
+        }
+
+        // Handle theme toggle
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                updateLogos(true);
+            } else {
+                html.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                updateLogos(false);
+            }
+        });
+
+        // Listen for system preference changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            // Only respond to system changes if no explicit preference is saved
+            const savedTheme = localStorage.getItem('theme');
+            if (!savedTheme) {
+                if (e.matches) {
                     html.setAttribute('data-theme', 'dark');
                     themeToggle.checked = true;
                     updateLogos(true);
-                } else if (savedTheme === 'light') {
-                    html.setAttribute('data-theme', 'light');
+                } else {
+                    html.removeAttribute('data-theme');
                     themeToggle.checked = false;
                     updateLogos(false);
-                } else {
-                    // No saved preference, detect system preference
-                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    if (prefersDark) {
-                        html.setAttribute('data-theme', 'dark');
-                        themeToggle.checked = true;
-                        updateLogos(true);
-                    } else {
-                        // System prefers light mode, no data-theme attribute needed
-                        updateLogos(false);
-                    }
                 }
-                
-                // Handle theme toggle
-                themeToggle.addEventListener('change', function() {
-                    if (this.checked) {
-                        html.setAttribute('data-theme', 'dark');
-                        localStorage.setItem('theme', 'dark');
-                        updateLogos(true);
-                    } else {
-                        html.setAttribute('data-theme', 'light');
-                        localStorage.setItem('theme', 'light');
-                        updateLogos(false);
-                    }
-                });
+            }
+        });
+    });
+</script>
 
-                // Listen for system preference changes
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-                    // Only respond to system changes if no explicit preference is saved
-                    const savedTheme = localStorage.getItem('theme');
-                    if (!savedTheme) {
-                        if (e.matches) {
-                            html.setAttribute('data-theme', 'dark');
-                            themeToggle.checked = true;
-                            updateLogos(true);
-                        } else {
-                            html.removeAttribute('data-theme');
-                            themeToggle.checked = false;
-                            updateLogos(false);
-                        }
-                    }
-                });
-            });
-        </script>
-    </body>
-
+</body>
 </html>
-
