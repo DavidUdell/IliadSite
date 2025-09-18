@@ -48,18 +48,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             const themeToggle = document.getElementById('theme-toggle');
             const html = document.documentElement;
-            const logoImg = document.getElementById('logo-img');
-            const footerLogo = document.getElementById('footer-logo');
             
             // Function to update logo based on theme
             function updateLogo(isDark) {
-                if (isDark) {
-                    logoImg.src = 'images/galley_dark_mode.svg';
-                    footerLogo.src = 'images/galley_dark_mode.svg';
-                } else {
-                    logoImg.src = 'images/galley_light_mode.svg';
-                    footerLogo.src = 'images/galley_light_mode.svg';
-                }
+                // No logo elements to update on this page
             }
             
             // Load saved theme preference or detect system preference
