@@ -1,24 +1,22 @@
-@layer reset, base, components;
+@layer reset, base;
 
 @layer reset {
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
     * {  margin: 0;  }
+
     img, picture, video, canvas, svg {
         display: block;
         max-width: 100%;
         height: auto;
     }
+
     input, button, textarea, select {
         font: inherit;
         color: inherit;
     }
-    :root {  color-scheme: light dark;  }
 
-    html {
-        overflow-x: hidden;
-    }
+    :root {  color-scheme: light dark;  }
+    html { overflow-x: hidden; }
 }
 
 @layer base {
@@ -34,20 +32,21 @@
         }
     }
 
-    [data-theme="dark"] {
-        --bg: #000000;
-        --ink: #ffffff;
-    }
-
     [data-theme="light"] {
         --bg: #ffffff;
         --ink: #000000;
+    }
+
+    [data-theme="dark"] {
+        --bg: #000000;
+        --ink: #ffffff;
     }
 
     html, body {
         height: 100%;
         font-size: clamp(16px, calc(12px + 0.6vw), 20px);
     }
+
     body {
         background: var(--bg);
         color: var(--ink);
@@ -69,14 +68,13 @@
         line-height: 1.2;
         font-weight: 700;
     }
+
     h1 {  font-size: 6rem;  }
     h2 {  font-size: 2.5rem;  }
 
     p { 
         margin-block: 2rem; 
-        word-wrap: break-word;
         overflow-wrap: break-word;
-        hyphens: auto;
     }
 
     nav {
@@ -84,7 +82,7 @@
         justify-content: space-between;
         align-items: center;
         max-width: 1200px;
-        margin: 0 auto;
+        margin-inline: auto;
         flex-wrap: wrap;
         gap: 1rem;
     }
@@ -103,7 +101,7 @@
     }
 
     .nav-links a:hover {
-        opacity: 0.7;
+        opacity: 0.9;
     }
 
     main {
@@ -145,12 +143,9 @@
     .slider {
         position: absolute;
         cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         background-color: var(--ink);
-        transition: 0.4s;
+        transition: transform 0.2s ease;
         border-radius: 34px;
     }
 
@@ -162,27 +157,26 @@
         left: 4px;
         bottom: 4px;
         background-color: var(--bg);
-        transition: 0.4s;
+        transition: transform 0.2s ease;
         border-radius: 50%;
-    }
-
-    input:checked + .slider {
-        background-color: var(--ink);
     }
 
     input:checked + .slider:before {
         transform: translateX(26px);
     }
 
+    input:checked + .slider {
+        background-color: var(--ink);
+    }
+
     .slider:hover {
-        opacity: 0.8;
+        opacity: 0.9;
     }
 
     footer {
         padding: 2rem;
         max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
+        margin-inline: auto;
         position: relative;
     }
 
@@ -190,9 +184,8 @@
         content: '';
         position: absolute;
         top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100vw;
+        left: -50vw;
+        right: -50vw;
         height: 1px;
         background-color: var(--ink);
     }
@@ -209,6 +202,7 @@
         grid-column: 2;
         font-size: 0.9rem;
         color: var(--ink);
+        opacity: 0.9;
     }
 
     .partner-logos {
