@@ -70,7 +70,10 @@
     }
 
     h1 {  font-size: 6rem;  }
-    h2 {  font-size: 2.5rem;  }
+    h2 {  
+        font-size: 2.5rem;
+        margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    }
 
     p { 
         margin-block: 2rem; 
@@ -131,7 +134,7 @@
     .title-main {
         font-size: clamp(4rem, 15vw, 132px);
         font-weight: 700;
-        margin: 0;
+        margin: 0 0 clamp(2rem, 4vw, 3rem) 0;
         text-align: center;
     }
 
