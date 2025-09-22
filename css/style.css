@@ -23,23 +23,31 @@
     :root {
         --bg: #ffffff;
         --ink: #000000;
+        --link: #0d3fab;
+        --link-visited: #6633ba;
     }
 
     @media (prefers-color-scheme: dark) {
         :root {
             --bg: #000000;
             --ink: #ffffff;
+            --link: #41B8FF;
+            --link-visited: #b37ffd;
         }
     }
 
     [data-theme="light"] {
         --bg: #ffffff;
         --ink: #000000;
+        --link: #0d3fab;
+        --link-visited: #6633ba;
     }
 
     [data-theme="dark"] {
         --bg: #000000;
         --ink: #ffffff;
+        --link: #41B8FF;
+        --link-visited: #b37ffd;
     }
 
     html, body {
@@ -62,6 +70,13 @@
         flex-direction: column;
         min-height: 100vh;
         overflow-x: hidden;
+    }
+
+    a {
+        color: var(--link);
+    }
+    a:visited {
+        color: var(--link-visited);
     }
 
     :where(h1, h2) {
