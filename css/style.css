@@ -77,6 +77,10 @@
         overflow-wrap: break-word;
     }
 
+    header {
+        padding-top: clamp(1rem, 3vw, 2rem);
+    }
+
     nav {
         display: flex;
         justify-content: space-between;
@@ -85,6 +89,16 @@
         margin-inline: auto;
         flex-wrap: wrap;
         gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: center;
+        }
+        .theme-toggle {
+            align-self: normal;
+        }
     }
 
     .nav-links {
