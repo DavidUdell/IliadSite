@@ -143,10 +143,10 @@
     // Background Hilbert curve animation
     (function() {
         // Parameters
-        const ORDER = 8;                 // Reduced order for background
-        const STEP_PER_FRAME = 1;        // Slower animation for background
-        const LINE_WIDTH = 1;            // snake thickness
-        const OPACITY = 1;             // Background opacity
+        const ORDER = 8;
+        const STEP_PER_FRAME = 2;
+        const LINE_WIDTH = 1;
+        const OPACITY = 1;
 
         const canvas = document.getElementById('background-canvas');
         const ctx = canvas.getContext('2d');
@@ -167,12 +167,13 @@
         const TOTAL = SIZE * SIZE;               // total points
         const W = canvas.clientWidth;
         const H = canvas.clientHeight;
-        const MARGIN = Math.min(W, H) * 0.05;    // 5% margin for better coverage
+        const MARGIN = Math.min(W, H) * 0.1;    // 5% margin for better coverage
         const step = Math.min((W - 2*MARGIN) / (SIZE - 1), (H - 2*MARGIN) / (SIZE - 1));
 
         // Map grid (x,y) -> canvas pixels
         function toPx(x, y) {
-            const px = MARGIN + x * step;
+            // Position from right edge instead of left margin
+            const px = W - MARGIN - x * step;
             const py = H - (MARGIN + y * step);
             return [px, py];
         }
@@ -208,8 +209,7 @@
         const pts = new Array(TOTAL);
         for (let d = 0; d < TOTAL; d++) {
             let [x, y] = d2xy(SIZE, d);
-            // Mirror horizontally so it starts from bottom-right and goes left
-            x = (SIZE - 1) - x;
+            // No need to mirror since toPx now positions from right edge
             pts[d] = toPx(x, y);
         }
 
