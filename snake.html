@@ -21,12 +21,12 @@
 
   <script>
     // --- Parameters you can tweak ---
-    const ORDER = 6;                 // Hilbert order (6 => 64x64 grid, 4096 points)
+    const ORDER = 8;                 // Hilbert order
     const MARGIN = 24;               // canvas pixels of padding
-    const SNAKE_TAIL = 240;          // how many segments of tail to show
-    const STEP_PER_FRAME = 2;        // points advanced per frame
-    const LINE_WIDTH = 5;            // snake thickness
-    const HEAD_GLOW = true;          // glowing head for fun
+    const SNAKE_TAIL = 1000000;          // how many segments of tail to show
+    const STEP_PER_FRAME = 1;        // points advanced per frame
+    const LINE_WIDTH = 1;            // snake thickness
+    const HEAD_GLOW = true;          // glowing head
     // --------------------------------
 
     const canvas = document.getElementById('c');
@@ -112,7 +112,7 @@
         const [x1, y1] = pts[j];
         ctx.moveTo(x0, y0);
         ctx.lineTo(x1, y1);
-        ctx.strokeStyle = '#7dd3fc';            // cyan-ish
+        ctx.strokeStyle = '#00ff00';
         ctx.stroke();
       }
 
@@ -135,7 +135,6 @@
       requestAnimationFrame(draw);
     }
 
-    // Kick off
     draw();
   </script>
 </body>
