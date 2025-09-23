@@ -24,9 +24,8 @@
     const ORDER = 8;                 // Hilbert order
     const MARGIN = 24;               // canvas pixels of padding
     const SNAKE_TAIL = 1000000;          // how many segments of tail to show
-    const STEP_PER_FRAME = 1;        // points advanced per frame
+    const STEP_PER_FRAME = 10;        // points advanced per frame
     const LINE_WIDTH = 1;            // snake thickness
-    const HEAD_GLOW = false;          // glowing head
     // --------------------------------
 
     const canvas = document.getElementById('c');
@@ -114,18 +113,6 @@
         ctx.lineTo(x1, y1);
         ctx.strokeStyle = '#00ff00';
         ctx.stroke();
-      }
-
-      // Optional glowing head
-      if (HEAD_GLOW && i < TOTAL) {
-        const [hx, hy] = pts[i];
-        ctx.globalAlpha = 0.9;
-        const rOuter = LINE_WIDTH * 1.8, rInner = LINE_WIDTH * 0.6;
-        const g = ctx.createRadialGradient(hx, hy, rInner, hx, hy, rOuter);
-        g.addColorStop(0, 'rgba(125,211,252,0.9)');
-        g.addColorStop(1, 'rgba(125,211,252,0)');
-        ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(hx, hy, rOuter, 0, Math.PI * 2); ctx.fill();
       }
 
       // Advance head
