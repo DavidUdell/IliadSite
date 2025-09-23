@@ -164,7 +164,10 @@
         const SIZE = 1 << ORDER;                 // grid width/height
         const TOTAL = SIZE * SIZE;               // total points
         const W = canvas.clientWidth;
-        const H = canvas.clientHeight;
+        // Calculate H as canvas height minus footer height
+        const footer = document.querySelector('footer');
+        const footerHeight = footer ? footer.offsetHeight : 0;
+        const H = canvas.clientHeight - footerHeight;
         const MARGIN = Math.min(W, H) * 0.075;
         const step = Math.min((W - 2*MARGIN) / (SIZE - 1), (H - 2*MARGIN) / (SIZE - 1));
 
@@ -172,7 +175,7 @@
         function toPx(x, y) {
             // Position from right edge instead of left margin
             const px = W - x * step;
-            const py = H - (MARGIN + y * step);
+            const py = H - y * step;
             return [px, py];
         }
 
