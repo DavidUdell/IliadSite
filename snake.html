@@ -26,7 +26,7 @@
     const SNAKE_TAIL = 1000000;          // how many segments of tail to show
     const STEP_PER_FRAME = 1;        // points advanced per frame
     const LINE_WIDTH = 1;            // snake thickness
-    const HEAD_GLOW = true;          // glowing head
+    const HEAD_GLOW = false;          // glowing head
     // --------------------------------
 
     const canvas = document.getElementById('c');
@@ -105,7 +105,7 @@
       const tailStart = Math.max(1, i - SNAKE_TAIL);
       for (let j = tailStart; j <= i; j++) {
         const a = (j - tailStart) / Math.max(1, (i - tailStart));
-        ctx.globalAlpha = Math.pow(a, 1.6);     // ease-in fade
+        ctx.globalAlpha = Math.pow(1 - a, 1.6);     // ease-out fade (diffuse out)
         ctx.lineWidth = LINE_WIDTH;
         ctx.beginPath();
         const [x0, y0] = pts[j - 1];
