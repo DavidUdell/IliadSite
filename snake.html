@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body {
-      height: 100%; margin: 0; background:#0b0c0f; color:#e6e6e6;
+      height: 100%; margin: 0; background:#000000; color:#ffffff;
       display: grid; place-items: center; font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
     .wrap { display:flex; flex-direction:column; gap:10px; align-items:center; }
-    canvas { background:#11151a; border-radius:14px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+    canvas { background:#000000; border-radius:14px; box-shadow: 0 10px 30px rgb(0, 0, 0); }
     .caption { opacity:.7 }
   </style>
 </head>
@@ -111,7 +111,7 @@
         const [x1, y1] = pts[j];
         ctx.moveTo(x0, y0);
         ctx.lineTo(x1, y1);
-        ctx.strokeStyle = '#00ff00';
+        ctx.strokeStyle = '#008900';
         ctx.stroke();
       }
 
