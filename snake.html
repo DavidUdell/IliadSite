@@ -5,13 +5,8 @@
   <title>Hilbert Snake</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    html, body {
-      height: 100%; margin: 0; background:#000000; color:#ffffff;
-      display: grid; place-items: center; font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
     .wrap { display:flex; flex-direction:column; gap:10px; align-items:center; }
     canvas { background:#000000; border-radius:14px; box-shadow: 0 10px 30px rgb(0, 0, 0); }
-    .caption { opacity:.7 }
   </style>
 </head>
 <body>
@@ -20,18 +15,18 @@
   </div>
 
   <script>
-    // --- Parameters you can tweak ---
+    // Parameters
     const ORDER = 8;                 // Hilbert order
     const MARGIN = 24;               // canvas pixels of padding
     const SNAKE_TAIL = 1000000;          // how many segments of tail to show
-    const STEP_PER_FRAME = 10;        // points advanced per frame
+    const STEP_PER_FRAME = 1000;        // points advanced per frame
     const LINE_WIDTH = 1;            // snake thickness
-    // --------------------------------
+
 
     const canvas = document.getElementById('c');
     const ctx = canvas.getContext('2d');
 
-    // HiDPI crispness
+    // For HiDPI displays
     (function scaleCanvasForDPR() {
       const dpr = Math.max(1, window.devicePixelRatio || 1);
       const { width, height } = canvas;
@@ -48,27 +43,27 @@
     const H = canvas.clientHeight;
     const step = Math.min((W - 2*MARGIN) / (SIZE - 1), (H - 2*MARGIN) / (SIZE - 1));
 
-    // Map grid (x,y) -> canvas pixels. y grows upward in grid, downward on canvas.
+    // Map grid (x,y) -> canvas pixels
     function toPx(x, y) {
       const px = MARGIN + x * step;
       const py = H - (MARGIN + y * step);
       return [px, py];
     }
 
-    // Rotate/flip a quadrant appropriately (standard Hilbert helper).
+    // Rotate a quadrant
     function rot(n, x, y, rx, ry) {
       if (ry === 0) {
         if (rx === 1) {
           x = n - 1 - x;
           y = n - 1 - y;
         }
-        // swap x and y
+
         const t = x; x = y; y = t;
       }
       return [x, y];
     }
 
-    // Convert distance d along the Hilbert curve to (x,y) in [0, SIZE-1]^2 (standard orientation).
+    // Convert distance d along the Hilbert curve to (x,y) in [0, SIZE-1]^2
     function d2xy(n, d) {
       let x = 0, y = 0;
       let t = d;
@@ -117,7 +112,10 @@
 
       // Advance head
       i += STEP_PER_FRAME;
-      if (i >= TOTAL) i = 1; // loop forever
+      if (i >= TOTAL) {
+        // Animation completed - stop here
+        return;
+      }
 
       requestAnimationFrame(draw);
     }
