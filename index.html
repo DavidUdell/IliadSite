@@ -143,8 +143,8 @@
     // Background Hilbert curve animation
     (function() {
         // Parameters
-        const ORDER = 8;
-        const STEP_PER_FRAME = 2;
+        const ORDER = 7;
+        const STEP_PER_FRAME = 10;
         const LINE_WIDTH = 1;
         const OPACITY = 1;
 
@@ -167,7 +167,7 @@
         const TOTAL = SIZE * SIZE;               // total points
         const W = canvas.clientWidth;
         const H = canvas.clientHeight;
-        const MARGIN = Math.min(W, H) * 0.1;    // 5% margin for better coverage
+        const MARGIN = Math.min(W, H) * 0.075;
         const step = Math.min((W - 2*MARGIN) / (SIZE - 1), (H - 2*MARGIN) / (SIZE - 1));
 
         // Map grid (x,y) -> canvas pixels
