@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Hilbert Snake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body {
+      height: 100%; margin: 0; background:#0b0c0f; color:#e6e6e6;
+      display: grid; place-items: center; font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .wrap { display:flex; flex-direction:column; gap:10px; align-items:center; }
+    canvas { background:#11151a; border-radius:14px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+    .caption { opacity:.7 }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <canvas id="c" width="900" height="900"></canvas>
+  </div>
+
+  <script>
+    // --- Parameters you can tweak ---
+    const ORDER = 6;                 // Hilbert order (6 => 64x64 grid, 4096 points)
+    const MARGIN = 24;               // canvas pixels of padding
+    const SNAKE_TAIL = 240;          // how many segments of tail to show
+    const STEP_PER_FRAME = 2;        // points advanced per frame
+    const LINE_WIDTH = 5;            // snake thickness
+    const HEAD_GLOW = true;          // glowing head for fun
+    // --------------------------------
+
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+
+    // HiDPI crispness
+    (function scaleCanvasForDPR() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const { width, height } = canvas;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.scale(dpr, dpr);
+    })();
+
+    const SIZE = 1 << ORDER;                 // grid width/height
+    const TOTAL = SIZE * SIZE;               // total points
+    const W = canvas.clientWidth;
+    const H = canvas.clientHeight;
+    const step = Math.min((W - 2*MARGIN) / (SIZE - 1), (H - 2*MARGIN) / (SIZE - 1));
+
+    // Map grid (x,y) -> canvas pixels. y grows upward in grid, downward on canvas.
+    function toPx(x, y) {
+      const px = MARGIN + x * step;
+      const py = H - (MARGIN + y * step);
+      return [px, py];
+    }
+
+    // Rotate/flip a quadrant appropriately (standard Hilbert helper).
+    function rot(n, x, y, rx, ry) {
+      if (ry === 0) {
+        if (rx === 1) {
+          x = n - 1 - x;
+          y = n - 1 - y;
+        }
+        // swap x and y
+        const t = x; x = y; y = t;
+      }
+      return [x, y];
+    }
+
+    // Convert distance d along the Hilbert curve to (x,y) in [0, SIZE-1]^2 (standard orientation).
+    function d2xy(n, d) {
+      let x = 0, y = 0;
+      let t = d;
+      for (let s = 1; s < n; s <<= 1) {
+        const rx = (t >> 1) & 1;
+        const ry = (t ^ rx) & 1;
+        [x, y] = rot(s, x, y, rx, ry);
+        x += s * rx;
+        y += s * ry;
+        t >>= 2;
+      }
+      return [x, y];
+    }
+
+    // Build the path points. We horizontally mirror so we START at bottom-right and first step goes UP.
+    const pts = new Array(TOTAL);
+    for (let d = 0; d < TOTAL; d++) {
+      let [x, y] = d2xy(SIZE, d);       // standard: starts at bottom-left and goes up
+      x = (SIZE - 1) - x;               // mirror horizontally -> start bottom-right, going up
+      pts[d] = toPx(x, y);
+    }
+
+    // Animation state
+    let i = 1; // head index into pts (segment head is between pts[i-1] -> pts[i])
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Draw snake tail with fading alpha
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      const tailStart = Math.max(1, i - SNAKE_TAIL);
+      for (let j = tailStart; j <= i; j++) {
+        const a = (j - tailStart) / Math.max(1, (i - tailStart));
+        ctx.globalAlpha = Math.pow(a, 1.6);     // ease-in fade
+        ctx.lineWidth = LINE_WIDTH;
+        ctx.beginPath();
+        const [x0, y0] = pts[j - 1];
+        const [x1, y1] = pts[j];
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y1);
+        ctx.strokeStyle = '#7dd3fc';            // cyan-ish
+        ctx.stroke();
+      }
+
+      // Optional glowing head
+      if (HEAD_GLOW && i < TOTAL) {
+        const [hx, hy] = pts[i];
+        ctx.globalAlpha = 0.9;
+        const rOuter = LINE_WIDTH * 1.8, rInner = LINE_WIDTH * 0.6;
+        const g = ctx.createRadialGradient(hx, hy, rInner, hx, hy, rOuter);
+        g.addColorStop(0, 'rgba(125,211,252,0.9)');
+        g.addColorStop(1, 'rgba(125,211,252,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(hx, hy, rOuter, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Advance head
+      i += STEP_PER_FRAME;
+      if (i >= TOTAL) i = 1; // loop forever
+
+      requestAnimationFrame(draw);
+    }
+
+    // Kick off
+    draw();
+  </script>
+</body>
+</html>
+
