@@ -42,14 +42,18 @@
 
     <p>We collaborate with researchers at:</p>
     <div class="partner-logos">
-        <img src="images/UDE_light_mode.svg" class="partner-logo" id="ude-logo">
-        <img src="images/Sussex.svg" class="partner-logo">
-        <img src="images/UNB_light_mode.svg" class="partner-logo" id="unb-logo">
+        <img src="images/UNB_light_mode.svg" class="partner-logo" id="unb-logo"
+        style="position: relative; bottom: 12px;">
+        <img src="images/Sussex_light_mode.svg" class="partner-logo"
+        id="sussex-logo" style="transform: scale(1.25)">
+        <img src="images/UDE_light_mode.svg" class="partner-logo" id="ude-logo"
+        style="transform: scale(0.96); position: relative; left: 3px;">
     </div>
 
     <p>and are financially supported by:</p>
     <div class="partner-logos">
-        <img src="images/SFF_light_mode.svg" class="partner-logo" id="sff-logo">
+        <img src="images/SFF_light_mode.svg" class="partner-logo" id="sff-logo"
+             style="position: relative; left: -4px;">
     </div>
 </main>
 
@@ -69,10 +73,12 @@
         function updateLogos(isDark) {
             if (isDark) {
                 document.getElementById('ude-logo').src = 'images/UDE_dark_mode.svg';
+                document.getElementById('sussex-logo').src = 'images/Sussex_dark_mode.svg';
                 document.getElementById('unb-logo').src = 'images/UNB_dark_mode.svg';
                 document.getElementById('sff-logo').src = 'images/SFF_dark_mode.svg';
             } else {
                 document.getElementById('ude-logo').src = 'images/UDE_light_mode.svg';
+                document.getElementById('sussex-logo').src = 'images/Sussex_light_mode.svg';
                 document.getElementById('unb-logo').src = 'images/UNB_light_mode.svg';
                 document.getElementById('sff-logo').src = 'images/SFF_light_mode.svg';
             }
