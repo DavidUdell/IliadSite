@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Background animation canvas -->
+    <canvas id="background-canvas"></canvas>
 
 <header>
     <nav>
@@ -137,6 +139,127 @@
             }
         });
     });
+
+    // Background Hilbert curve animation
+    (function() {
+        // Parameters
+        const ORDER = 8;                 // Reduced order for background
+        const STEP_PER_FRAME = 1;        // Slower animation for background
+        const LINE_WIDTH = 1;            // snake thickness
+        const OPACITY = 1;             // Background opacity
+
+        const canvas = document.getElementById('background-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas to full viewport with HiDPI support
+        function resizeCanvas() {
+            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = window.innerWidth + "px";
+            canvas.style.height = window.innerHeight + "px";
+            ctx.scale(dpr, dpr);
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const SIZE = 1 << ORDER;                 // grid width/height
+        const TOTAL = SIZE * SIZE;               // total points
+        const W = canvas.clientWidth;
+        const H = canvas.clientHeight;
+        const MARGIN = Math.min(W, H) * 0.05;    // 5% margin for better coverage
+        const step = Math.min((W - 2*MARGIN) / (SIZE - 1), (H - 2*MARGIN) / (SIZE - 1));
+
+        // Map grid (x,y) -> canvas pixels
+        function toPx(x, y) {
+            const px = MARGIN + x * step;
+            const py = H - (MARGIN + y * step);
+            return [px, py];
+        }
+
+        // Rotate a quadrant
+        function rot(n, x, y, rx, ry) {
+            if (ry === 0) {
+                if (rx === 1) {
+                    x = n - 1 - x;
+                    y = n - 1 - y;
+                }
+                const t = x; x = y; y = t;
+            }
+            return [x, y];
+        }
+
+        // Convert distance d along the Hilbert curve to (x,y) in [0, SIZE-1]^2
+        function d2xy(n, d) {
+            let x = 0, y = 0;
+            let t = d;
+            for (let s = 1; s < n; s <<= 1) {
+                const rx = (t >> 1) & 1;
+                const ry = (t ^ rx) & 1;
+                [x, y] = rot(s, x, y, rx, ry);
+                x += s * rx;
+                y += s * ry;
+                t >>= 2;
+            }
+            return [x, y];
+        }
+
+        // Build the path points - ensure it starts from bottom-right
+        const pts = new Array(TOTAL);
+        for (let d = 0; d < TOTAL; d++) {
+            let [x, y] = d2xy(SIZE, d);
+            // Mirror horizontally so it starts from bottom-right and goes left
+            x = (SIZE - 1) - x;
+            pts[d] = toPx(x, y);
+        }
+
+        // Animation state
+        let i = 1;
+        let animationId;
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+
+            // Draw snake tail with fading alpha
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            const tailStart = 1;
+            for (let j = tailStart; j <= i; j++) {
+                const a = (j - tailStart) / Math.max(1, (i - tailStart));
+                ctx.globalAlpha = Math.pow(1 - a, 1.6) * OPACITY;
+                ctx.lineWidth = LINE_WIDTH;
+                ctx.beginPath();
+                const [x0, y0] = pts[j - 1];
+                const [x1, y1] = pts[j];
+                ctx.moveTo(x0, y0);
+                ctx.lineTo(x1, y1);
+                ctx.strokeStyle = '#008900';
+                ctx.stroke();
+            }
+
+            // Advance head
+            i += STEP_PER_FRAME;
+            if (i >= TOTAL) {
+                // Reset animation when complete
+                i = 1;
+            }
+
+            animationId = requestAnimationFrame(draw);
+        }
+
+        // Start animation
+        draw();
+
+        // Pause animation when page is not visible
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                cancelAnimationFrame(animationId);
+            } else {
+                draw();
+            }
+        });
+    })();
 </script>
 
 </body>
