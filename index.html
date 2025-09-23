@@ -151,14 +151,12 @@
         const canvas = document.getElementById('background-canvas');
         const ctx = canvas.getContext('2d');
 
-        // Set canvas to full viewport with HiDPI support
         function resizeCanvas() {
-            const dpr = Math.max(1, window.devicePixelRatio || 1);
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             canvas.style.width = window.innerWidth + "px";
             canvas.style.height = window.innerHeight + "px";
-            ctx.scale(dpr, dpr);
+            ctx.scale(1, 1);
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -173,7 +171,7 @@
         // Map grid (x,y) -> canvas pixels
         function toPx(x, y) {
             // Position from right edge instead of left margin
-            const px = W - MARGIN - x * step;
+            const px = W - x * step;
             const py = H - (MARGIN + y * step);
             return [px, py];
         }
