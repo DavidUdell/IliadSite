@@ -175,7 +175,7 @@
         // Map grid (x,y) -> canvas pixels
         const TOP = H - (SIZE - 1) * step;
         function toPx(x, y) {
-            // Position from right edge instead of left margin
+            // Position from right edge
             const px = W - x * step;
             const py = TOP + y * step;
             return [px, py];
@@ -208,11 +208,10 @@
             return [x, y];
         }
 
-        // Build the path points - ensure it starts from bottom-right
+        // Build the path points
         const pts = new Array(TOTAL);
         for (let d = 0; d < TOTAL; d++) {
             let [x, y] = d2xy(SIZE, d);
-            // No need to mirror since toPx now positions from right edge
             pts[d] = toPx(x, y);
         }
 
