@@ -52,7 +52,7 @@
 
     html, body {
         height: 100%;
-        font-size: clamp(16px, calc(12px + 0.6vw), 20px);
+        font-size: 100%;
     }
 
     body {
@@ -98,7 +98,7 @@
     h1 {  font-size: 6rem;  }
     h2 {  
         font-size: 2.5rem;
-        margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+        margin-bottom: clamp(1.5rem, 2rem, 2.5rem);
     }
 
     p { 
@@ -107,7 +107,7 @@
     }
 
     header {
-        padding-top: clamp(1rem, 3vw, 2rem);
+        padding-top: clamp(1rem, 2rem, 2rem);
     }
 
     nav {
@@ -132,7 +132,7 @@
 
     .nav-links {
         display: flex;
-        gap: clamp(1rem, 3vw, 2rem);
+        gap: clamp(1rem, 2rem, 2rem);
         flex-wrap: wrap;
     }
 
@@ -148,7 +148,7 @@
     }
 
     main {
-        padding: clamp(1rem, 4vw, 2rem);
+        padding: clamp(1rem, 2rem, 2rem);
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
@@ -158,9 +158,9 @@
     }
 
     .title-main {
-        font-size: clamp(4rem, 15vw, 132px);
+        font-size: clamp(4rem, 6rem, 132px);
         font-weight: 700;
-        margin: 0 0 clamp(2rem, 4vw, 3rem) 0;
+        margin: 0 0 clamp(2rem, 2rem, 3rem) 0;
         text-align: center;
     }
 
@@ -217,23 +217,16 @@
     }
 
     footer {
-        padding: 2rem;
-        max-width: 1200px;
-        margin-inline: auto;
+        width: 100%;
+        padding: 2rem 0;
+        border-top: 1px solid var(--ink);
         position: relative;
     }
 
-    footer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -50vw;
-        right: -50vw;
-        height: 1px;
-        background-color: var(--ink);
-    }
-
     .footer-content {
+        max-width: 1200px;
+        margin-inline: auto;
+        padding-inline: 1rem;
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         align-items: center;
@@ -250,7 +243,7 @@
 
     .partner-logos {
         display: flex;
-        gap: clamp(1rem, 4vw, 2rem);
+        gap: clamp(1rem, 2rem, 2rem);
         align-items: center;
         flex-wrap: wrap;
         justify-content: center;
