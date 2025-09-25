@@ -66,12 +66,10 @@
 </footer>
 
 <script>
-    // Theme toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
 
-        // Function to update logos based on theme
         function updateLogos(isDark) {
             if (isDark) {
                 document.getElementById('ude-logo').src = 'images/UDE_dark_mode.svg';
@@ -86,7 +84,6 @@
             }
         }
 
-        // Load saved theme preference or detect system preference
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             html.setAttribute('data-theme', 'dark');
@@ -109,7 +106,7 @@
             }
         }
 
-        // Handle theme toggle
+        // Handle toggle
         themeToggle.addEventListener('change', function() {
             if (this.checked) {
                 html.setAttribute('data-theme', 'dark');
@@ -140,9 +137,8 @@
         });
     });
 
-    // Background Hilbert curve animation
+    // Hilbert curve animation
     (function() {
-        // Parameters
         const ORDER = 7;
         const STEP_PER_FRAME = 10;
         const LINE_WIDTH = 1;
@@ -239,7 +235,6 @@
                 ctx.stroke();
             }
 
-            // Advance head
             i += STEP_PER_FRAME;
             if (i >= TOTAL) {
                 i = TOTAL - 1;  // Final state index
