@@ -173,10 +173,11 @@
         const step = Math.min((W - 2*MARGIN) / (SIZE - 1), (H - 2*MARGIN) / (SIZE - 1));
 
         // Map grid (x,y) -> canvas pixels
+        const TOP = H - (SIZE - 1) * step;
         function toPx(x, y) {
             // Position from right edge instead of left margin
             const px = W - x * step;
-            const py = H - y * step;
+            const py = TOP + y * step;
             return [px, py];
         }
 
