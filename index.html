@@ -253,7 +253,7 @@
             i += STEP_PER_FRAME;
             if (i >= TOTAL) {
                 i = TOTAL - 1;  // Final state index
-                return; // Exit the draw function to stop animation
+                return; // Stop the animation
             }
 
             animationId = requestAnimationFrame(draw);
