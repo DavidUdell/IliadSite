@@ -141,18 +141,23 @@
     (function() {
         const ORDER = 7;
         const STEP_PER_FRAME = 10;
-        const LINE_WIDTH = 1;
         const OPACITY = 1;
 
         const canvas = document.getElementById('background-canvas');
         const ctx = canvas.getContext('2d');
 
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            canvas.style.width = window.innerWidth + "px";
-            canvas.style.height = window.innerHeight + "px";
-            ctx.scale(1, 1);
+            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            const cssWidth = window.innerWidth;
+            const cssHeight = window.innerHeight;
+
+            canvas.width = Math.round(cssWidth * dpr);
+            canvas.height = Math.round(cssHeight * dpr);
+            canvas.style.width = cssWidth + "px";
+            canvas.style.height = cssHeight + "px";
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+            ctx.translate(0.5 / dpr, 0.5 / dpr);
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -217,15 +222,15 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
 
-            // Draw snake tail with fading alpha
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
+            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            ctx.lineWidth = 1 / dpr;
+            ctx.lineCap = 'butt';
+            ctx.lineJoin = 'miter';
 
             const tailStart = 1;
             for (let j = tailStart; j <= i; j++) {
                 const a = (j - tailStart) / Math.max(1, (i - tailStart));
                 ctx.globalAlpha = Math.pow(1 - a, 1.6) * OPACITY;
-                ctx.lineWidth = LINE_WIDTH;
                 ctx.beginPath();
                 const [x0, y0] = pts[j - 1];
                 const [x1, y1] = pts[j];
