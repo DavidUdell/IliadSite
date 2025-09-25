@@ -227,17 +227,26 @@
             ctx.lineWidth = 1 / dpr;
             ctx.lineCap = 'butt';
             ctx.lineJoin = 'miter';
+            ctx.strokeStyle = '#00E000';
 
             const tailStart = 1;
+
             for (let j = tailStart; j <= i; j++) {
                 const a = (j - tailStart) / Math.max(1, (i - tailStart));
                 ctx.globalAlpha = Math.pow(1 - a, 1.6) * OPACITY;
-                ctx.beginPath();
                 const [x0, y0] = pts[j - 1];
                 const [x1, y1] = pts[j];
+
+                // Right curve
+                ctx.beginPath();
                 ctx.moveTo(x0, y0);
                 ctx.lineTo(x1, y1);
-                ctx.strokeStyle = '#00E000';
+                ctx.stroke();
+
+                // Left curve
+                ctx.beginPath();
+                ctx.moveTo(W - x0, y0);
+                ctx.lineTo(W - x1, y1);
                 ctx.stroke();
             }
 
