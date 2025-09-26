@@ -155,7 +155,14 @@
         flex: 1;
         width: 100%;
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
+
+    main > .title-main + * { margin-block-start: auto; }
+    main > :last-child { margin-block-end: auto; }
 
     .title-main {
         font-size: clamp(4rem, 6rem, 132px);
