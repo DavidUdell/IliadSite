@@ -146,9 +146,9 @@
         const ctx = canvas.getContext('2d');
 
         const HEAT_SCALE = 0.5;
-        const EMIT_R_CSS = 42;
+        const EMIT_R_CSS = 200;
         const BLUR_PX = 10;
-        const DECAY = 0.975;
+        const DECAY = 0.99;
 
         let heatA = document.createElement('canvas');
         let heatB = document.createElement('canvas');
@@ -156,6 +156,7 @@
         let heatBctx = heatB.getContext('2d');
         let dpr = 1, emitR = 20;
         let prevI = 1;
+        let heatCenters = [];
 
         const SIZE = 1 << ORDER;                 // grid width/height
         const TOTAL = SIZE * SIZE;               // total points
@@ -199,7 +200,16 @@
                 const [gx, gy] = d2xy(SIZE, d);
                 pts[d] = [Math.round(Wpx - gx * step), Math.round(TOP + gy * step)];
             }
-            emitR = Math.max(6, EMIT_R_CSS * dpr * HEAT_SCALE);
+            emitR = Math.max(12, 0.5 * Math.min(Wpx, Hpx) * HEAT_SCALE);
+            const [trX, trY] = pts[0];
+            heatCenters = [[trX, trY], [Wpx - trX, trY]];
+
+            heatActx.save();
+            heatActx.globalAlpha = 1.0;
+            for (const [cx, cy] of heatCenters) stampHeat(cx, cy);
+            heatActx.restore();
+            for (let k = 0; k < 40; k++) diffuseHeat();
+
         }
 
         function stampHeat(x, y) {
@@ -283,16 +293,11 @@
                 ctx.stroke();
             }
 
-            const from = prevI + 1;
-            const to = Math.min(i, TOTAL - 1);
-            for (let j = Math.max(1, from); j <= to; j++) {
-                const [x0, y0] = pts[j - 1];
-                const [x1, y1] = pts[j];
-                const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
-                stampHeat(mx, my);
-                stampHeat(Wpx - mx, my);
-            }
-            prevI = to;
+            heatActx.save();
+            heatActx.globalAlpha = 0.25;
+            for (const [cx, cy] of heatCenters) stampHeat(cx, cy);
+            heatActx.restore();
+
             diffuseHeat();
             ctx.save();
             ctx.globalCompositeOperation = 'destination-in';
