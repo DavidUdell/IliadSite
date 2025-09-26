@@ -198,7 +198,8 @@
             pts = new Array(TOTAL);
             for (let d = 0; d < TOTAL; d++) {
                 const [gx, gy] = d2xy(SIZE, d);
-                pts[d] = [Math.round(Wpx - gx * step), Math.round(TOP + gy * step)];
+                // Emanate from the bottom corners
+                pts[d] = [Math.round(Wpx - gx * step), Math.round(TOP + (SIZE - 1 - gy) * step)];
             }
             emitR = Math.max(12, 0.5 * Math.min(Wpx, Hpx) * HEAT_SCALE);
             const [trX, trY] = pts[0];
