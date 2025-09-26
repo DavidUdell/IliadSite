@@ -145,6 +145,10 @@
         const canvas = document.getElementById('background-canvas');
         const ctx = canvas.getContext('2d');
 
+        const SIZE = 1 << ORDER;                 // grid width/height
+        const TOTAL = SIZE * SIZE;               // total points
+
+        let Wpx = 0, Hpx = 0, pts = [];
         function resizeCanvas() {
             const dpr = Math.max(1, window.devicePixelRatio || 1);
             const cssWidth = window.innerWidth;
@@ -155,30 +159,28 @@
             canvas.style.width = cssWidth + "px";
             canvas.style.height = cssHeight + "px";
             ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.scale(dpr, dpr);
-            ctx.translate(0.5 / dpr, 0.5 / dpr);
+            ctx.translate(0.5, 0.5);
+            recomputeGeometry();
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const SIZE = 1 << ORDER;                 // grid width/height
-        const TOTAL = SIZE * SIZE;               // total points
-        const W = canvas.clientWidth;
-        // Calculate H as canvas height minus footer height
-        const footer = document.querySelector('footer');
-        const footerHeight = footer ? footer.offsetHeight : 0;
-        const H = canvas.clientHeight - footerHeight;
-        const MARGIN = Math.min(W, H) * 0.075;
-        const step = Math.min((W - 2*MARGIN) / (SIZE - 1), (H - 2*MARGIN) / (SIZE - 1));
-
-        // Map grid (x,y) -> canvas pixels
-        const TOP = H - (SIZE - 1) * step;
-        function toPx(x, y) {
-            // Position from right edge
-            const px = W - x * step;
-            const py = TOP + y * step;
-            return [px, py];
+        function recomputeGeometry() {
+            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            const footer = document.querySelector('footer');
+            const footerPx = Math.round((footer ? footer.offsetHeight : 0) * dpr);
+            Wpx = canvas.width;
+            Hpx = canvas.height - footerPx;
+            const MARGIN = Math.min(Wpx, Hpx) * 0.075;
+            const step = Math.min((Wpx - 2*MARGIN) / (SIZE - 1), (Hpx - 2*MARGIN) / (SIZE - 1));
+            const TOP = Hpx - (SIZE - 1) * step;
+            pts = new Array(TOTAL);
+            for (let d = 0; d < TOTAL; d++) {
+                const [gx, gy] = d2xy(SIZE, d);
+                pts[d] = [Math.round(Wpx - gx * step), Math.round(TOP + gy * step)];
+            }
         }
+
 
         // Rotate a quadrant
         function rot(n, x, y, rx, ry) {
@@ -207,22 +209,13 @@
             return [x, y];
         }
 
-        // Build the path points
-        const pts = new Array(TOTAL);
-        for (let d = 0; d < TOTAL; d++) {
-            let [x, y] = d2xy(SIZE, d);
-            pts[d] = toPx(x, y);
-        }
-
         // Animation state
         let i = 1;
         let animationId;
 
         function draw() {
-            ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-
-            const dpr = Math.max(1, window.devicePixelRatio || 1);
-            ctx.lineWidth = 1 / dpr;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.lineWidth = 1;
             ctx.lineCap = 'butt';
             ctx.lineJoin = 'miter';
             ctx.strokeStyle = '#00E000';
@@ -243,8 +236,8 @@
 
                 // Left curve
                 ctx.beginPath();
-                ctx.moveTo(W - x0, y0);
-                ctx.lineTo(W - x1, y1);
+                ctx.moveTo(Wpx - x0, y0);
+                ctx.lineTo(Wpx - x1, y1);
                 ctx.stroke();
             }
 
@@ -260,14 +253,13 @@
         // Start animation
         draw();
 
-        // Pause animation when page is not visible
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                cancelAnimationFrame(animationId);
-            } else {
-                draw();
-            }
-        });
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', resizeCanvas);
+        }
+        (function watchDPR() {
+            const q = matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`);
+            q.addEventListener('change', () => { resizeCanvas(); watchDPR(); });
+        })();
     })();
 </script>
 
