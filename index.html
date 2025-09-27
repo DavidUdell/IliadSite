@@ -138,6 +138,15 @@
 
     // Hilbert curve animation
     (function() {
+        const footerEl = document.querySelector('footer');
+        function dprNow() {
+            return Math.max(1, window.devicePixelRatio || 1);
+        }
+        function getFooterTopPx() {
+            const top = footerEl ? footerEl.getBoundingClientRect().top : window.innerHeight;
+            const clamped = Math.max(0, Math.min(top, window.innerHeight));
+            return Math.round(clamped * dprNow());
+        }
         const ORDER = 7;
         const STEP_PER_FRAME = 10;
         const OPACITY = 1;
@@ -181,35 +190,37 @@
             heatActx.setTransform(1, 0, 0, 1, 0, 0); heatActx.clearRect(0, 0, heatA.width, heatA.height);
             heatBctx.setTransform(1, 0, 0, 1, 0, 0); heatBctx.clearRect(0, 0, heatB.width, heatB.height);
 
-            recomputeGeometry();
+            recomputeGeometry(true);
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        function recomputeGeometry() {
-            const dpr = Math.max(1, window.devicePixelRatio || 1);
-            const footer = document.querySelector('footer');
-            const footerPx = Math.round((footer ? footer.offsetHeight : 0) * dpr);
+        function recomputeGeometry(prewarm = false) {
             Wpx = canvas.width;
-            Hpx = canvas.height - footerPx;
+            Hpx = Math.max(1, Math.min(canvas.height, getFooterTopPx()));
             const MARGIN = Math.min(Wpx, Hpx) * 0.075;
-            const step = Math.min((Wpx - 2*MARGIN) / (SIZE - 1), (Hpx - 2*MARGIN) / (SIZE - 1));
+            const step = Math.min(
+                (Wpx - 2*MARGIN) / (SIZE - 1),
+                (Hpx - 2*MARGIN) / (SIZE - 1)
+            );
             const TOP = Hpx - (SIZE - 1) * step;
             pts = new Array(TOTAL);
             for (let d = 0; d < TOTAL; d++) {
                 const [gx, gy] = d2xy(SIZE, d);
-                // Emanate from the bottom corners
                 pts[d] = [Math.round(Wpx - gx * step), Math.round(TOP + (SIZE - 1 - gy) * step)];
             }
+
             emitR = Math.max(12, 0.5 * Math.min(Wpx, Hpx) * HEAT_SCALE);
             const [trX, trY] = pts[0];
             heatCenters = [[trX, trY], [Wpx - trX, trY]];
 
-            heatActx.save();
-            heatActx.globalAlpha = 1.0;
-            for (const [cx, cy] of heatCenters) stampHeat(cx, cy);
-            heatActx.restore();
-            for (let k = 0; k < 40; k++) diffuseHeat();
+            if (prewarm) {
+                heatActx.save();
+                heatActx.globalAlpha = 1.0;
+                for (const [cx, cy] of heatCenters) stampHeat(cx, cy);
+                heatActx.restore();
+                for (let k = 0; k < 40; k++) diffuseHeat();
+            }
 
         }
 
@@ -266,7 +277,10 @@
         let i = 1;
         let animationId;
 
-        function draw() {
+        let scrollRaf = false;
+
+        function renderFrame() {
+            recomputeGeometry(false);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.lineWidth = 1;
             ctx.lineCap = 'butt';
@@ -304,19 +318,34 @@
             ctx.globalCompositeOperation = 'destination-in';
             ctx.drawImage(heatA, 0, 0, heatA.width, heatA.height, 0, 0, canvas.width, canvas.height);
             ctx.restore();
-
-            i += STEP_PER_FRAME;
-            if (i >= TOTAL) {
-                i = TOTAL - 1;  // Final state index
-                return; // Stop the animation
+        }
+        
+        function draw() {
+            renderFrame();
+            i = Math.min(TOTAL - 1, i + STEP_PER_FRAME);
+            if (i >= TOTAL - 1) {
+                return;
             }
-
             animationId = requestAnimationFrame(draw);
         }
+
 
         // Start animation
         draw();
 
+        function rerenderOnScroll() {
+            if (scrollRaf) return;
+            scrollRaf = true;
+            requestAnimationFrame(() => {
+                scrollRaf = false;
+                recomputeGeometry(false);
+                renderFrame();
+            });
+            }
+        window.addEventListener('scroll', rerenderOnScroll, { passive: true });
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('scroll', rerenderOnScroll, { passive: true });
+        }
         if (window.visualViewport) {
             window.visualViewport.addEventListener('resize', resizeCanvas);
         }
