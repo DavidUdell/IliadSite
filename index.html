@@ -144,8 +144,7 @@
         }
         function getFooterTopPx() {
             const top = footerEl ? footerEl.getBoundingClientRect().top : window.innerHeight;
-            const clamped = Math.max(0, Math.min(top, window.innerHeight));
-            return Math.round(clamped * dprNow());
+            return Math.round(Math.max(0, top) * dprNow());
         }
         const ORDER = 7;
         const STEP_PER_FRAME = 10;
@@ -197,7 +196,7 @@
 
         function recomputeGeometry(prewarm = false) {
             Wpx = canvas.width;
-            Hpx = Math.max(1, Math.min(canvas.height, getFooterTopPx()));
+            Hpx = Math.max(1, getFooterTopPx());
             const MARGIN = Math.min(Wpx, Hpx) * 0.075;
             const step = Math.min(
                 (Wpx - 2*MARGIN) / (SIZE - 1),
