@@ -159,8 +159,13 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
 
         const HEAT_SCALE = 0.5;
         const EMIT_R_CSS = 200;
-        const BLUR_PX = 26;
+        // const BLUR_PX = 26;
+        const BLUR_BASE_CSS = 28;
         const DECAY = 0.996;
+
+        function heatBlurPx() {
+            return Math.max(1, Math.round(BLUR_BASE_CSS * dprNow() * HEAT_SCALE));
+        }
 
         let heatA = document.createElement('canvas');
         let heatB = document.createElement('canvas');
@@ -240,7 +245,7 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
 
         function diffuseHeat() {
             heatBctx.save();
-            heatBctx.filter = `blur(${BLUR_PX}px)`;
+            heatBctx.filter = `blur(${heatBlurPx()}px)`;
             heatBctx.globalCompositeOperation = 'copy';
             heatBctx.globalAlpha = DECAY;
             heatBctx.drawImage(heatA, 0, 0);
