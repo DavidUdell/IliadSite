@@ -41,6 +41,8 @@
     ILIAD conference</a> series, along with a range of other conferences and
     events in the field.</p>
 
+    <!-- TODO: All these logos should be less prominent, somehow, despite them
+    putting a floor of 70px (the existing) on their logo heights.-->
     <p>We collaborate with researchers at these academic institutions</p>
     <div class="partner-logos">
         <img src="images/UNB_light_mode.svg" class="partner-logo" id="unb-logo"
@@ -60,10 +62,15 @@
 
 <footer>
     <div class="footer-content">
-        <small class="footer-copyright">© 2025 The Iliad Project</small>
+        <small class="footer-copyright">© 2025 Iliad</small>
     </div>
 </footer>
 
+<!-- TODO: I considered putting in a hard break for the curve grids down the
+centerline of the page. That would first-pass prevent any overlapping of the
+curve development on small mobile screens.-->
+<!-- TODO: Noting also that the alpha gradent doesn't work nearly as nicely on
+high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const themeToggle = document.getElementById('theme-toggle');
