@@ -159,7 +159,7 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
 
         const HEAT_SCALE = 0.5;
         const EMIT_R_CSS = 200;
-        const BLUR_PX = (matchMedia('(pointer: coarse), (max-width: 768px)').matches ? Math.round(100 * (window.devicePixelRatio || 1) * HEAT_SCALE) : 26);
+        const BLUR_PX = 26;
         const DECAY = 0.996;
 
         let heatA = document.createElement('canvas');
