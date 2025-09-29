@@ -156,10 +156,8 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
 
         const canvas = document.getElementById('background-canvas');
         const ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
 
-        const HEAT_SCALE = (window.devicePixelRation >= 2) ? 1 : 0.5;
+        const HEAT_SCALE = 0.5;
         const EMIT_R_CSS = 200;
         const BLUR_PX = 26;
         const DECAY = 0.996;
