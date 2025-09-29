@@ -66,10 +66,7 @@
     </div>
 </footer>
 
-<!-- TODO: I considered putting in a hard break for the curve grids down the
-centerline of the page. That would first-pass prevent any overlapping of the
-curve development on small mobile screens.-->
-<!-- TODO: Noting also that the alpha gradent doesn't work nearly as nicely on
+<!-- TODO: Noting that the alpha gradent doesn't work nearly as nicely on
 high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -294,10 +291,13 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
             ctx.strokeStyle = '#00E000';
 
             const tailStart = 1;
+            const MID = Math.trunc(Wpx / 2);
 
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(MID, 0, Wpx - MID, Hpx);
+            ctx.clip();
             for (let j = tailStart; j <= i; j++) {
-                const a = (j - tailStart) / Math.max(1, (i - tailStart));
-                ctx.globalAlpha = 1;
                 const [x0, y0] = pts[j - 1];
                 const [x1, y1] = pts[j];
 
@@ -306,6 +306,16 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
                 ctx.moveTo(x0, y0);
                 ctx.lineTo(x1, y1);
                 ctx.stroke();
+            }
+            ctx.restore();
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(0, 0, MID, Hpx);
+            ctx.clip();
+            for (let j = tailStart; j <= i; j++) {
+                const [x0, y0] = pts[j - 1];
+                const [x1, y1] = pts[j];
 
                 // Left curve
                 ctx.beginPath();
@@ -313,6 +323,7 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
                 ctx.lineTo(Wpx - x1, y1);
                 ctx.stroke();
             }
+            ctx.restore();
 
             heatActx.save();
             heatActx.globalAlpha = 0.25;
