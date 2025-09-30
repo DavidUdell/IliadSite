@@ -170,6 +170,11 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
         let prevI = 1;
         let heatCenters = [];
 
+        // Mobile detection
+        function isMobile() {
+            return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
         const SIZE = 1 << ORDER;                 // grid width/height
         const TOTAL = SIZE * SIZE;               // total points
 
@@ -218,11 +223,15 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
             heatCenters = [[trX, trY], [Wpx - trX, trY]];
 
             if (prewarm) {
-                heatActx.save();
-                heatActx.globalAlpha = 1.0;
-                for (const [cx, cy] of heatCenters) stampHeat(cx, cy);
-                heatActx.restore();
-                for (let k = 0; k < 40; k++) diffuseHeat();
+                if (isMobile()) {
+                    createMobileGradient();
+                } else {
+                    heatActx.save();
+                    heatActx.globalAlpha = 1.0;
+                    for (const [cx, cy] of heatCenters) stampHeat(cx, cy);
+                    heatActx.restore();
+                    for (let k = 0; k < 40; k++) diffuseHeat();
+                }
             }
 
         }
@@ -247,6 +256,16 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
             heatBctx.restore();
             [heatA, heatB] = [heatB, heatA];
             [heatActx, heatBctx] = [heatBctx, heatActx];
+        }
+
+        // Simple vertical gradient heatmap for mobile
+        function createMobileGradient() {
+            heatActx.clearRect(0, 0, heatA.width, heatA.height);
+            const gradient = heatActx.createLinearGradient(0, heatA.height, 0, 0);
+            gradient.addColorStop(0.0, 'rgba(0,0,0,0.95)');
+            gradient.addColorStop(1.0, 'rgba(0,0,0,0.0)');
+            heatActx.fillStyle = gradient;
+            heatActx.fillRect(0, 0, heatA.width, heatA.height);
         }
 
         // Rotate a quadrant
@@ -325,12 +344,17 @@ high-DPI mobile screens; some CSS tweaking will be needed to fix that case.-->
             }
             ctx.restore();
 
-            heatActx.save();
-            heatActx.globalAlpha = 0.25;
-            for (const [cx, cy] of heatCenters) stampHeat(cx, cy);
-            heatActx.restore();
-
-            diffuseHeat();
+            // Apply heatmap - use simple gradient on mobile, spotlights on desktop
+            if (isMobile()) {
+                createMobileGradient();
+            } else {
+                heatActx.save();
+                heatActx.globalAlpha = 0.25;
+                for (const [cx, cy] of heatCenters) stampHeat(cx, cy);
+                heatActx.restore();
+                diffuseHeat();
+            }
+            
             ctx.save();
             ctx.globalCompositeOperation = 'destination-in';
             ctx.drawImage(heatA, 0, 0, heatA.width, heatA.height, 0, 0, canvas.width, canvas.height);
