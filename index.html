@@ -301,9 +301,10 @@
             return [x, y];
         }
 
-        // Animation state
+        // Animation state: forward draws 1..TOTAL-1; reverse undraws back to 0
         let i = 1;
         let animationId;
+        let phase = 'forward';  // 'forward' | 'reverse'
 
         let scrollRaf = false;
 
@@ -369,9 +370,18 @@
         
         function draw() {
             renderFrame();
-            i = Math.min(TOTAL - 1, i + STEP_PER_FRAME);
-            if (i >= TOTAL - 1) {
-                return;
+            if (phase === 'forward') {
+                i = Math.min(TOTAL - 1, i + STEP_PER_FRAME);
+                if (i >= TOTAL - 1) {
+                    phase = 'reverse';
+                }
+            } else {
+                i = Math.max(0, i - STEP_PER_FRAME);
+                if (i <= 0) {
+                    i = 0;
+                    renderFrame();
+                    return;
+                }
             }
             animationId = requestAnimationFrame(draw);
         }
